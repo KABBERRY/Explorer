@@ -10,6 +10,7 @@ const Coin = require('../model/coin');
 const { CarverAddress, CarverMovement } = require('../model/carver2d');
 const { CarverAddressType } = require('../lib/carver2d');
 const { BlockRewardDetails } = require('../model/blockRewardDetails');
+const Rich = require('../model/rich');
 
 
 /**
@@ -28,6 +29,11 @@ async function syncCoin() {
   const info = await rpc.call('getinfo');
   const masternodes = await rpc.call('getmasternodecount');
   const nethashps = await rpc.call('getnetworkhashps');
+  var activewallets = 0;
+    await Rich.find({ 'value': { $gt: 0 } }).count(function(err, count) {
+        if (err) { console.log(err) }
+        activewallets = count;
+    });
 
   let market = await fetch(url);
   if (Array.isArray(market)) {
@@ -50,6 +56,7 @@ async function syncCoin() {
     peers: info.connections,
     status: 'Online',
     supply: market.available_supply, // TODO: change to actual count from db.
+    activewallets: activewallets,
     usd: market.price_usd,
     countCarverAddresses,
     countCarverMovements

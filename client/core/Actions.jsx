@@ -110,6 +110,12 @@ export const getCoinsWeek = () => {
   });
 };
 
+export const getCoinsMonth = () => {
+  return new promise((resolve, reject) => {
+    return getFromWorker('coins-month', resolve, reject);
+  });
+};
+
 export const getIsBlock = (query) => {
   return new promise((resolve, reject) => {
     return getFromWorker('is-block', resolve, reject, query);
@@ -305,6 +311,12 @@ export const getTXsWeek = () => {
   });
 };
 
+export const getTXsMonth = () => {
+  return new promise((resolve, reject) => {
+    return getFromWorker('txs-month', resolve, reject);
+  });
+};
+
 // This is currently the only action that updates anything in the store - Look at Reducers.jsx, txs()
 export const setTXs = (dispatch, txs) => {
   dispatch({ payload: txs, type: TXS });
@@ -325,6 +337,7 @@ export default {
   getBlock,
   getCoinHistory,
   getCoinsWeek,
+  getCoinsMonth,
   getIsBlock,
   getMNs,
   getPeers,
@@ -334,6 +347,7 @@ export default {
   getTXLatest,
   getTXs,
   getTXsWeek,
+  getTXsMonth,
   getPos,
   setTXs,
   setWatch,

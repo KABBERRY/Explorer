@@ -75,6 +75,16 @@ const APIdata = [
         info: 'Returns top 100',
         path: '/api/top100'
       },
+        {
+          name: 'getAllAddrs',
+          info: 'Returns all addresses in database',
+          path: '/api/alladdrs'
+        },
+		{
+			name: 'getWalletCount',
+			info: 'Returns count of  addresses in database',
+			path: '/api/walletcount'
+		},
       {
         name: 'getTXs',
         info: 'Returns transaction information.',
