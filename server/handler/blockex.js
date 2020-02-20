@@ -481,6 +481,25 @@ const getPeer = (req, res) => {
     });
 };
 
+const getAddnodes = async(req, res) => {
+    var returnaddnodes = "";
+    Peer.find()
+        .skip(req.query.skip ? parseInt(req.query.skip, 10) : 0)
+		.limit(req.query.limit ? parseInt(req.query.limit, 10) : 500)
+        .sort({ ip: 1 })
+        .then((docs) => {
+	        var returndata = docs;
+            for (var i = 0; i < returndata.length; i++) {
+                returnaddnodes = returnaddnodes + "addnode=" + returndata[i].ip + "\n"
+            }
+            res.send(returnaddnodes);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send(err.message || err);
+        });
+};
+
 /**
  * Get coin supply information for usage.
  * https://github.com/coincheckup/crypto-supplies
@@ -575,10 +594,9 @@ const getAllAddrs = (req, res) => {
 const getWalletCount = async(req, res) => {
     try {
         await Rich.find({ 'value': { $gt: 0 } }).count(function(err, count) {
-            return count;
+        res.json(count);
         });
 
-        res.json(docs);
     } catch (err) {
         console.log(err);
         res.status(500).send(err.message || err);
@@ -1060,6 +1078,7 @@ module.exports = {
   getMasternodeByAddress,
   getMasternodeCount,
   getPeer,
+  getAddnodes,
   getSupply,
   getTop100,
   getAllAddrs,

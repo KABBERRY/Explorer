@@ -95,7 +95,7 @@ async function syncBlocks(start, stop, sequence) {
 
     for (let txIndex = 0; txIndex < rpcblock.tx.length; txIndex++) {
       const txhash = rpcblock.tx[txIndex];
-      const rpctx = await util.getTX(txhash, false);
+      const rpctx = await util.getTX(txhash, true);
 
 
       let updatedAddresses = new Map(); // @todo this could be a Set<CarverAddress> instead of Map<addressLabel,CarverAddress>

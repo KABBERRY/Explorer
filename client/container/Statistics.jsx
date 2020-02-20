@@ -196,8 +196,8 @@ class Statistics extends Component {
               </div>
             </div>
             <div className="col-md-12 col-lg-6">
-              <h3>DogeCash Supply</h3>
-              <h4>{ numeral(this.props.coin.supply).format('0,0.00') } DOGEC</h4>
+              <h3>Kabberry Supply</h3>
+              <h4>{ numeral(this.props.coin.supply).format('0,0.00') } KKC</h4>
               <div>
                 <GraphLineFull
                   color="#1991eb"
@@ -222,7 +222,7 @@ class Statistics extends Component {
           <div className="row">
             <div className="col-md-12 col-lg-6">
               <h3>{config.coinDetails.shortName} Price USD</h3>
-              <h4>{numeral(this.props.coin.usd).format('$0,0.00')} {day}</h4>
+              <h4>{numeral(this.props.coin.usd).format('$0,0.0000')} {day}</h4>
               <h5>{numeral(this.props.coin.btc).format('0.00000000')} BTC</h5>
               <div>
                 <GraphLineFull

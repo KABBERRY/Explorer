@@ -12,7 +12,7 @@ export default class CardBlockRewardDetailsMasternode extends Component {
 
   render() {
     // Ensure this reward transaction has new blockRewardDetails data (for backwards compatability)
-    if (this.props.tx.isReward && !this.props.tx.blockRewardDetails) {
+    if (this.props.tx.isReward && !this.props.tx.blockRewardDetails || this.props.tx.blockRewardDetails === undefined) {
       return null;
     }
 
@@ -32,7 +32,7 @@ export default class CardBlockRewardDetailsMasternode extends Component {
           </div>
           <div className="card__row mt-3">
             <span className="card__label">Masternode Address:</span>
-            <span className="card__result"><Link to={`/address/${blockRewardDetails.masternode.addressLabel}`}>{blockRewardDetails.masternode.addressLabel}</Link></span>
+            <span className="card__result">{blockRewardDetails.masternode.address}</span>
           </div>
           <div className="card__row">
             <span className="card__label">Address Lifetime Count:</span>

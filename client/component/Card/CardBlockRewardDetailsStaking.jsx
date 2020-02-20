@@ -55,9 +55,7 @@ export default class CardBlockRewardDetailsStaking extends Component {
           </div>
           <div className="card__row">
             <span className="card__label">Stake Reward:</span>
-            <span className="card__result">
-              {this.getBlockRewardLink(blockRewardDetails)}
-            </span>
+            <span className="card__result">{numeral(blockRewardDetails.stake.reward).format(config.coinDetails.coinNumberFormat)} {config.coinDetails.shortName}</span>
           </div>
           <div className="card__row mt-3">
             <span className="card__label">Stake Input Amount:</span>
@@ -75,6 +73,10 @@ export default class CardBlockRewardDetailsStaking extends Component {
           <div className="card__row mt-3">
             <span className="card__label">Staking Address:</span>
             <span className="card__result"><Link to={`/address/${blockRewardDetails.stake.addressLabel}`}>{blockRewardDetails.stake.addressLabel}</Link></span>
+          </div>
+          <div className="card__row">
+            <span className="card__label">Staking Input:</span>
+            <span className="card__result">{numeral(blockRewardDetails.stake.input.amount).format(config.coinDetails.coinNumberFormat)} {config.coinDetails.shortName}</span>
           </div>
           <div className="card__row">
             <span className="card__label">Address Stake Count:</span>

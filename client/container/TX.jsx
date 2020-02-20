@@ -68,7 +68,7 @@ class TX extends Component {
   }
 
   getBlockRewardDetailsMasternode() {
-    if (!this.state.tx.isReward) {
+    if (!this.props.tx.isReward || this.props.tx.blockRewardDetails === undefined) {
       return null;
     }
     return (
@@ -80,7 +80,7 @@ class TX extends Component {
   }
 
   getBlockRewardDetailsStaking() {
-    if (!this.state.tx.isReward) {
+    if (!this.props.tx.isReward || this.props.tx.blockRewardDetails === undefined) {
       return null;
     }
     return (
