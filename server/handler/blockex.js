@@ -526,6 +526,30 @@ const getSupply = async (req, res) => {
 };
 
 /**
+ * Get coin supply information for usage.
+ * https://github.com/coincheckup/crypto-supplies
+ * @param {Object} req The request object.
+ * @param {Object} res The response object.
+ */
+const getTotSupply = async (req, res) => {
+  try {
+    let t = 0; // Total supply.
+
+    const totSupply = await cache.getFromCache("supply", moment().utc().add(1, 'hours').unix(), async () => {
+      const balanceAgregation = await CarverAddress.aggregate([{ $match: { carverAddressType: 1 } }, { $group: { _id: null, total: { $sum: '$balance' } } }]);
+      return balanceAgregation[0].total;
+    });
+
+    const supply = {totSupply }
+
+    res.json(supply);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message || err);
+  }
+};
+
+/**
  * Get the top 100 addresses from the database.
  * @param {Object} req The request object.
  * @param {Object} res The response object.
@@ -1080,6 +1104,7 @@ module.exports = {
   getPeer,
   getAddnodes,
   getSupply,
+  getTotSupply,
   getTop100,
   getAllAddrs,
   getWalletCount,

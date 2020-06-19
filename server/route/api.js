@@ -20,6 +20,7 @@ router.get('/masternodecount', blockex.getMasternodeCount);
 router.get('/peer', blockex.getPeer);
 router.get('/addnodes', blockex.getAddnodes);
 router.get('/supply', blockex.getSupply);
+router.get('/totalsupply', blockex.getTotSupply);
 router.get('/top100', blockex.getTop100);
 router.get('/alladdrs', blockex.getAllAddrs);
 router.get('/walletcount', blockex.getWalletCount);
