@@ -65,8 +65,8 @@ const config = {
     api: 'https://extreme-ip-lookup.com/json/' //@todo need to find new geoip service as the limits are too small now (hitting limits) 
   },
   coinMarketCap: {
-    api: 'http://api.coinmarketcap.com/v1/ticker/',
-    ticker: 'kabberry-coin'
+	btc_api: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&symbol=kkc&&convert=BTC',
+	usd_api:'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&symbol=kkc&&convert=USD'
   },
 
   /**
