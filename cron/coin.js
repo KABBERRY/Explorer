@@ -22,8 +22,8 @@ async function syncCoin() {
 
   const date = moment().utc().startOf('minute').toDate();
   // Setup the coinmarketcap.com api url.
-  const url = `${config.coinMarketCap.api}${config.coinMarketCap.ticker}`;
-
+  const btc_url = `${config.coinMarketCap.btc_api}`;
+  const usd_url = `${config.coinMarketCap.usd_api}`;
   //@todo wrap rpc in try catch and if add new "RPC Status"
   //If rpc fails, display indicator on website that RPC is down
   const info = await rpc.call('getinfo');
@@ -35,29 +35,33 @@ async function syncCoin() {
         activewallets = count;
     });
 
-  let market = await fetch(url);
-  if (Array.isArray(market)) {
-    market = market.length ? market[0] : {};
+  let btc_market = await fetch(btc_url);
+  if (Array.isArray(btc_market)) {
+    btc_market = btc_market.length ? btc_market[0] : {};
+  }
+  
+  let usd_market = await fetch(usd_url);
+  if (Array.isArray(usd_market)) {
+    usd_market = usd_market.length ? usd_market[0] : {};
   }
 
   const countCarverAddresses = await CarverAddress.find({ carverAddressType: CarverAddressType.Address }).count();
   const countCarverMovements = await CarverMovement.find({ isReward: false }).count();
-
-
+  
   const coin = new Coin({
-    cap: market.market_cap_usd,
+    cap: usd_market.data.KKC.quote.USD.market_cap,
     createdAt: date,
     blocks: info.blocks,
-    btc: market.price_btc,
+    btc: btc_market.data.KKC.quote.BTC.price,
     diff: info.difficulty,
     mnsOff: masternodes.total - masternodes.stable,
     mnsOn: masternodes.stable,
     netHash: nethashps,
     peers: info.connections,
     status: 'Online',
-    supply: market.available_supply, // TODO: change to actual count from db.
+    supply: usd_market.data.KKC.max_supply - usd_market.data.KKC.circulating_supply, // TODO: change to actual count from db.
     activewallets: activewallets,
-    usd: market.price_usd,
+    usd: usd_market.data.KKC.quote.USD.price,
     countCarverAddresses,
     countCarverMovements
   });
