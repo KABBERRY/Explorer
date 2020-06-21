@@ -540,9 +540,9 @@ const getTotSupply = async (req, res) => {
       return balanceAgregation[0].total;
     });
 
-    const supply = {totSupply }
+    const supply = {totSupply}
 
-    res.json(supply);
+    res.send(supply.totSupply.toString());
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message || err);
